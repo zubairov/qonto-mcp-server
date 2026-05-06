@@ -1,1 +1,2 @@
 from .external_transfers import get_qonto_external_transfer, list_qonto_external_transfers
+from .verify_payee import bulk_verify_qonto_sepa_payees, verify_qonto_sepa_payee
