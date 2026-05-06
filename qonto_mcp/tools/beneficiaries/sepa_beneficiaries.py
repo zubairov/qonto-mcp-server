@@ -61,7 +61,7 @@ def create_qonto_sepa_beneficiary(
         response.raise_for_status()
         return response.json()
     except RequestException as e:
-        raise RuntimeError(f"Failed to create SEPA beneficiary: {str(e)}")
+        raise RuntimeError(qonto_mcp.format_qonto_error("create SEPA beneficiary", e))
 
 
 @mcp.tool()
@@ -102,7 +102,7 @@ def trust_qonto_sepa_beneficiaries(beneficiary_ids: List[str]):
         response.raise_for_status()
         return response.json()
     except RequestException as e:
-        raise RuntimeError(f"Failed to trust SEPA beneficiaries: {str(e)}")
+        raise RuntimeError(qonto_mcp.format_qonto_error("trust SEPA beneficiaries", e))
 
 
 @mcp.tool()
@@ -155,4 +155,4 @@ def update_qonto_sepa_beneficiary(
         response.raise_for_status()
         return response.json()
     except RequestException as e:
-        raise RuntimeError(f"Failed to update SEPA beneficiary: {str(e)}")
+        raise RuntimeError(qonto_mcp.format_qonto_error("update SEPA beneficiary", e))

@@ -52,7 +52,7 @@ def verify_qonto_sepa_payee(iban: str, beneficiary_name: str):
         response.raise_for_status()
         return response.json()
     except RequestException as e:
-        raise RuntimeError(f"Failed to verify SEPA payee: {str(e)}")
+        raise RuntimeError(qonto_mcp.format_qonto_error("verify SEPA payee", e))
 
 
 @mcp.tool()
@@ -113,4 +113,4 @@ def bulk_verify_qonto_sepa_payees(payees: List[Dict[str, str]]):
         response.raise_for_status()
         return response.json()
     except RequestException as e:
-        raise RuntimeError(f"Failed to bulk-verify SEPA payees: {str(e)}")
+        raise RuntimeError(qonto_mcp.format_qonto_error("bulk-verify SEPA payees", e))

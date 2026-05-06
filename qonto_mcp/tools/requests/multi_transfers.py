@@ -84,4 +84,4 @@ def create_qonto_multi_transfer_request(
         response.raise_for_status()
         return response.json()
     except RequestException as e:
-        raise RuntimeError(f"Failed to create multi-transfer request: {str(e)}")
+        raise RuntimeError(qonto_mcp.format_qonto_error("create multi-transfer request", e))
