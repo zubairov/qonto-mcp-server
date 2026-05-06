@@ -168,6 +168,16 @@ This MCP server provides the following tools for interacting with your Qonto acc
 - **Account Management**: Access account information and balances
 - **Transaction History**: Retrieve and analyze transaction data
 - **Business Operations**: Access business-related financial data
+- **Transfer preparation**: Pre-configure transfer templates that land as
+  `pending` requests for manual approval inside the Qonto app — money only
+  moves once a teammate with review permissions approves. Tools:
+  - `create_qonto_multi_transfer_request` — draft 1–400 transfers in one
+    request awaiting human approval.
+  - `create_qonto_sepa_beneficiary`, `update_qonto_sepa_beneficiary`,
+    `trust_qonto_sepa_beneficiaries` — manage the beneficiary address book.
+    (`trust` is Embed-partner only and may return 403 on standard API keys.)
+  - `verify_qonto_sepa_payee`, `bulk_verify_qonto_sepa_payees` —
+    Verification of Payee (VoP) checks before drafting a transfer.
 
 ## Configuration
 

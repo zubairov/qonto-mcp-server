@@ -1,5 +1,6 @@
 import os
 from mcp.server.fastmcp import FastMCP
+from requests.exceptions import RequestException
 
 # Qonto API configuration
 thirdparty_host = None
@@ -36,3 +37,23 @@ def setup_qonto_config():
 
     if staging_token:
         headers["X-Qonto-Staging-Token"] = staging_token
+
+
+def format_qonto_error(action: str, e: RequestException) -> str:
+    """Build an error string that includes the Qonto response body.
+
+    Without this, a 401/403/422 surfaces only as
+    "401 Client Error: Unauthorized for url: …" — the JSON body that explains
+    *which* scope is missing or *which* field is invalid is dropped on the
+    floor. Surfacing the body makes scope/permission/validation issues
+    self-diagnosing for the caller.
+    """
+    base = f"Failed to {action}: {str(e)}"
+    if e.response is not None:
+        try:
+            body = e.response.text
+        except Exception:
+            body = ""
+        if body:
+            return f"{base} | response body: {body}"
+    return base
